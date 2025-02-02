@@ -48,11 +48,11 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build --build-arg JAR_FILE=target/myapp-${{ env.newversion }}.jar \
-            -t ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.newversion }} .
+            -t ${GITHUB_REPOSITORY#*/}:${{ env.newversion }} .
 
       - name: Push Docker Image
         run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.newversion }}
+          docker push ${GITHUB_REPOSITORY#*/}/myapp:${{ env.newversion }}
 
       - name: Pull and Run Docker Image
         run: |
