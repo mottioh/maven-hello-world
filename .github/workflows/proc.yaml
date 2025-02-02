@@ -74,7 +74,7 @@ jobs:
           pwd
           cd ..
           ls
-          helm template myapp ./myapp-helm-chart
+          helm template myapp maven-hello-world/myapp-helm-chart
 
       - name: Deploy Helm Chart
         run: |
