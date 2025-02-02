@@ -72,6 +72,8 @@ jobs:
       - name: Helm Template
         run: |
           pwd
+          cd ..
+          ls
           helm template myapp myapp-helm-chart/
 
       - name: Deploy Helm Chart
