@@ -47,17 +47,17 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build --build-arg JAR_FILE=target/myapp-${{ env.newversion }}.jar \
-            -t ${{ github.event.repository.name }}:${{ env.newversion }} .
+          docker build --build-arg JAR_FILE=target/myapp-${{ env.NEW_VERSION }}.jar \
+            -t ${{ github.event.repository.name }}:${{ env.NEW_VERSION }} .
 
       - name: Push Docker Image
         run: |
-          docker push ${{ github.event.repository.name }}:${{ env.newversion }}
+          docker push ${{ github.event.repository.name }}:${{ env.NEW_VERSION }}
 
       - name: Pull and Run Docker Image
         run: |
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.newversion }}
-          docker run -d --rm --name myapp -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.newversion }}
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
+          docker run -d --rm --name myapp -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
 
   # deploy:
   #   needs: build
