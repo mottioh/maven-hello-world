@@ -65,14 +65,16 @@ jobs:
 
     steps:
 
+      - name: Get the code
+        uses: actions/checkout@v3
+
       - name: Install Helm
         run: |
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
       - name: Helm Template
         run: |
-          ls /home/runner/work/maven-hello-world/maven-hello-world/myapp-helm-chart
-          helm template myapp ./myapp-helm-chart
+          helm template myapp myapp-helm-chart
 
       - name: Deploy Helm Chart
         run: |
