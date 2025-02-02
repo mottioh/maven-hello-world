@@ -75,7 +75,8 @@ jobs:
       - name: Helm Template
         run: |
           helm template myapp myapp-helm-chart
-
-      - name: Deploy Helm Chart
-        run: |
-          helm upgrade --install myapp ./helm --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp,image.tag=${{ env.newversion }}
+          
+# Comment out the deployment of the Helm chart because we don't have a Kubernetes cluster, and it would cause the build process to fail. Therefore, I have templated it instead.
+      # - name: Deploy Helm Chart
+      #   run: |
+      #     helm upgrade --install myapp myapp-helm-chart --set image.tag=${{ env.newversion }}
