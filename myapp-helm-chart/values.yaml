@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/mottioh/myapp
+  tag: "latest"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  host: myapp.local
+
+resources: {}

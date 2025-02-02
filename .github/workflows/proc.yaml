@@ -59,21 +59,25 @@ jobs:
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
           docker run --rm --name myapp -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
 
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout Helm Chart
-  #       uses: actions/checkout@v3
-  #       with:
-  #         repository: my-org/myapp-helm-chart
-  #         token: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout Helm Chart
+        uses: actions/checkout@v3
+        with:
+          repository: my-org/myapp-helm-chart
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-  #     - name: Install Helm
-  #       run: |
-  #         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-  #     - name: Deploy Helm Chart
-  #       run: |
-  #         helm upgrade --install myapp ./helm --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp,image.tag=${{ env.newversion }}
+      - name: Helm Template
+        run: |
+          helm template myapp-helm-chart
+
+      - name: Deploy Helm Chart
+        run: |
+          helm upgrade --install myapp ./helm --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/myapp,image.tag=${{ env.newversion }}
