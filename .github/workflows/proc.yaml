@@ -57,7 +57,7 @@ jobs:
       - name: Pull and Run Docker Image
         run: |
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
-          docker run -d --rm --name myapp -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
+          docker run --rm --name myapp -p 8080:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ env.NEW_VERSION }}
 
   # deploy:
   #   needs: build
