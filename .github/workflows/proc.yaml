@@ -27,7 +27,7 @@ jobs:
           IFS='.' read -r majorVer minorVer patchVer <<< "$currentVersion"
           newVersion="$majorVer.$minorVer.$((patchVer+1))"
           echo "New version: $newVersion"
-          sed -i "s|<version>$currentVersion</version>|<version>$newVersion</version>|g" pom.xml
+          sed -i "s|<version>$currentVersion</version>|<version>$newVersion</version>|g" myapp/pom.xml
           # using special environment GITHUB_ENV so i will be able to call newVersion on any other step
           echo "NEW_VERSION=$newVersion" >> $GITHUB_ENV
 
