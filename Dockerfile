@@ -8,7 +8,10 @@ COPY myapp/pom.xml .
 RUN mvn dependency:go-offline
 
 # Copy the rest of the project files
-COPY myapp/src/ src/
+COPY myapp/ .
+
+# Build the application
+RUN mvn clean package -DskipTests
 
 # ===== Stage 2: Create a lightweight runtime image =====
 FROM eclipse-temurin:17-jre-alpine
